@@ -1,0 +1,70 @@
+﻿@using SampleDataVisualization.Models.AccountViewModel;
+
+@model RegisterViewModel
+
+@{ ViewData["Title"] = "Register"; }
+
+<div class="row">
+    <div class="col-md-3">
+        <h4>@ViewData["Title"]<span id="LblLoadKeySpinner" class=""></span></h4>
+    </div>
+</div>
+
+<form method="post" class="needs-validation" id="register" name="Register" asp-controller="Account" asp-action="SaveRecords">
+    <div id="RegisterForm">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="FirstName"><b>First Name</b></label>
+                <input type="text" id="FirstName" name="FirstName" class="form-control" maxlength="300" autocomplete="off" pattern="([a-zA-Z" "])*" title="Enter the valid Name.ex: Firstname" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="LastName"><b>Last Name</b></label>
+                <input type="text" id="LastName" name="LastName" class="form-control" maxlength="300" autocomplete="off" pattern="([a-zA-Z" "])*" title="Enter the valid Name.ex: Lastname" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="Email"><b>Email Id</b></label>
+                <input type="email" id="Email" name="Email" class="form-control" maxlength="300" autocomplete="off" pattern="" title="Enter the valid email.ex: username@gmail.com" required />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="Password"></label>
+                <input id="Password" name="Password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" id="CmdSaveUserRecord" value="Save User Record" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        window.addEventListener('load', function () {
+            function toPascalCase(s) {
+                return !s ? s : s.charAt(0).toUpperCase() + s.substring(1);
+            }
+            $(document).bindHandlers({
+                newUser: function (u) {
+                    $("[Name=FirstName]").val(toPascalCase($.ss.splitOnFirst(u, '@@')[0]));
+                    $("[Name=LastName]").val(toPascalCase($.ss.splitOnFirst($.ss.splitOnFirst(u, '@@')[1], '.')[0]));
+                    $("[Name=Email]").val(u);
+                    $("[Name=Password]").val('p@55wOrd');
+                    $("[Name=ConfirmPassword]").val('p@55wOrd');
+                }
+            });
+        });
+    </script>
+
+}
+

@@ -1,0 +1,57 @@
+﻿@inject Microsoft.EntityFrameworkCore.DbContextOptions<SampleDataVisualization.Helpers.EF.Models.AppIdentityDbContext> _dbContextOptions
+@inject Microsoft.EntityFrameworkCore.DbContextOptions<SampleDataVisualization.Helpers.EF.Models.HealthDbContext> _dbContextOptions
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _httpContextAccessor
+@using SampleDataVisualization.Helpers;
+@using System.Security.Claims
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SampleDataVisualization</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="nav-item float-left">
+                <a class="btn btn-primary" asp-area="" asp-controller="Health" asp-action="Health">Add Health Record</a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Health" asp-action="Dashboard">Dashboard</a>
+            </div>
+            <hr />
+            <div class="nav-item float-right">
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown float-right">
+                            <a class="nav-link dropdown-toggle" styl="text-color: blue;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>&nbsp;@User.Identity.Name</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item " asp-area="" asp-controller="Account" asp-action="Logout">Sign out</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - SampleDataVisualization - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+

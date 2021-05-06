@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Health Check";
+    Layout = "~/Views/Shared/_HealthLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.10/css/bootstrap-select.min.css" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+<div class="row">
+    <div class="col-md-3">
+        <h4>Health Check<span id="LblLoadKeySpinner" class=""></span></h4>
+    </div>
+</div>
+
+<form method="post" class="needs-validation" id="AddHealthRecord" name="AddHealthRecord" asp-controller="Health" asp-action="SaveRecords">
+    <div id="HealthForm">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="FullName"><b>Full Name</b></label>
+                <input type="text" id="FullName" name="FullName" class="form-control" maxlength="300" autocomplete="off" pattern="([a-zA-Z" "])*" title="Enter the valid Name.ex: firstname lastname" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="Age"><b>Age</b></label> <i id="HelpAggregatedStatusTarget" style="cursor: pointer;" class="fas fa-info-circle"></i>
+                <input type="number" id="Age" name="Age" class="form-control" pattern="(^(\d{0,2})$)|(^(100)$)" title="Enter the valid value between 0-100" step="any" min="0" max="100" required />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="Diabetic"><b>Diabetic</b></label>
+                <select id="Diabetic" name="Diabetic" class="form-control selectpicker" data-live-search="true" data-max-options="1" required>
+                    <option value="">--Select--</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="submit" id="CmdSaveHealthRecord" value="Save Health Record" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.10/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+}
